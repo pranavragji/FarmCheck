@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dnerd.dipty.farmcheck.MainActivity"
+    android:orientation="vertical"
+    android:background="#FF0A0909">
+
+    <LinearLayout
+        android:id="@+id/mainLinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mainTextViewAppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:layout_gravity="center"
+            android:textStyle="italic"
+            android:textSize="60sp"
+            android:layout_marginTop="60dp"
+            android:textColor="@color/lightorange"/>
+        <TextView
+            android:id="@+id/mainTextViewWelcomeMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcomeText"
+            android:layout_gravity="center"
+            android:textStyle="italic"
+            android:textSize="20sp"
+            android:layout_marginTop="0dp"
+            android:textColor="@color/lightorangedark"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/mainLinearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/farm3">
+
+        <Button
+            android:id="@+id/mainLoginButton"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonshape"
+            android:layout_gravity="center"
+            android:text="@string/login"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+        <Button
+            android:id="@+id/mainSignUpButton"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonshape"
+            android:layout_gravity="center"
+            android:text="@string/signup"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

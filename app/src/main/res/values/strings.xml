@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">FarmCheck</string>
+    <string name="welcomeText">Keep you farm disease free now!</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="title_activity_login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forget_password">Forgot your password?</string>
+    <string name="createAccount">Create Account!</string>
+    <string name="title_activity_sign_up">SignUp</string>
+    <string name="name1">Name</string>
+    <string name="name">Name</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="username">Name</string>
+    <string name="sign_up_error_message_name">Signup error</string>
+    <string name="sign_up_error_title">Error signing up</string>
+    <string name="sign_up_error_message_email">Email can\'t be empty</string>
+    <string name="sign_up_error_message_password">password can\'t be empty</string>
+    <string name="sign_up_error_message">Error signing up</string>
+    <string name="validEmailError">Give a valid email address</string>
+    <string name="validPasswordError">Password can\'t be less than 6 character</string>
+    <string name="firebase_signup_error">Firebase signup error</string>
+    <string name="login_error_message_password">Error logging in</string>
+    <string name="login_error_message">Password or email can\'t be empty</string>
+    <string name="login_error_title">Invalid email address</string>
+    <string name="firebase_login_error">Firebase login problem</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="searchString">Search</string>
+    <string name="discussioForum">Discussion Forum</string>
+    <string name="logout">Log out</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="profileUpdated">Profile Updated</string>
+    <string name="change_image">Change picture</string>
+</resources>

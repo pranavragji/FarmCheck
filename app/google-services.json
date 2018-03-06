@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "398139817674",
+    "firebase_url": "https://farmcheck-44bd7.firebaseio.com",
+    "project_id": "farmcheck-44bd7",
+    "storage_bucket": "farmcheck-44bd7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398139817674:android:1ccc6708222a4ef2",
+        "android_client_info": {
+          "package_name": "com.dnerd.dipty.farmcheck"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398139817674-d4vulh1s7iqp40b0e6ae6e5p7scnucmk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dnerd.dipty.farmcheck",
+            "certificate_hash": "96cac5bfcc58f9ec56c7ca64613d5c246dbdb3bf"
+          }
+        },
+        {
+          "client_id": "398139817674-14l6dcctautjft9tvjp2dd46u81i36it.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_-TbExaAnv7fcgz5msVGk5s9LUCF1Xgs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398139817674-14l6dcctautjft9tvjp2dd46u81i36it.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
