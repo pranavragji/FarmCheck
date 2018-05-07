@@ -7,16 +7,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,49 +36,46 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
-import com.theartofdev.edmodo.cropper.CropImage;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import id.zelory.compressor.Compressor;
-import com.mancj.materialsearchbar.MaterialSearchBar;
 
-public class Profile extends AppCompatActivity implements MaterialSearchBar.OnSearchActionListener {
+public class Profile extends AppCompatActivity {
+    private static final String TAG = "Profile";
     private static final int gallery_pic = 101;
-    CircleImageView mProfileImage;
-    TextView mName,mEmail;
-    Uri uriProfileImage;
+    private CircleImageView mProfileImage,mNavProfileImage,mNavPic;
+    private ImageView mAddProfilePic;
+    private TextView mName,mEmail,mPhone,mNavEmail;
+    private Uri uriProfileImage;
     private ProgressDialog mProgressDialog;
-    String mProfileImageUrl;
-    FirebaseAuth mAuth;
-    private DatabaseReference getUsersDataReference;
-    StorageReference profileImageReference;
+    private String mProfileImageUrl;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mGetUsersDataReference,mNavGetUsersDataRefrence,mMapDatabaseReference;
+    private StorageReference profileImageReference;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle actionbarDrawer;
-    private MaterialSearchBar searchBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        final Toolbar toolbar =  findViewById(R.id.toolbar);
+        //toolbar.setTitle("");
         setSupportActionBar(toolbar);
-
-        searchBar =  findViewById(R.id.searchBar);
-        searchBar.setHint("Custom hint");
-        searchBar.setSpeechMode(true);
-        searchBar.setOnSearchActionListener((MaterialSearchBar.OnSearchActionListener) this);
-
 
         mProfileImage = findViewById(R.id.profileImage);
         mName = findViewById(R.id.profileTextViewUsername);
         mEmail = findViewById(R.id.profileTextViewEmail);
+      //  mPhone = findViewById(R.id.profileTextViewPhone);
+/*        mNavProfileImage = findViewById(R.id.navProfileImage);
+        mNavEmail = findViewById(R.id.navTextViewEmail);*/
+        mAddProfilePic =findViewById(R.id.addProfilePic);
+
         drawer = findViewById(R.id.drawer_nav);
         actionbarDrawer = new ActionBarDrawerToggle(this,drawer,R.string.open,R.string.close);
         actionbarDrawer.setDrawerIndicatorEnabled(true);
@@ -88,36 +85,85 @@ public class Profile extends AppCompatActivity implements MaterialSearchBar.OnSe
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         NavigationView navView = findViewById(R.id.nav_view);
 
+        View header = navView.getHeaderView(0);
+        final TextView mNavEmail = header.findViewById(R.id.navTextViewEmail);
+        final TextView mNavName = header.findViewById(R.id.navTextViewName);
+        mNavPic = header.findViewById(R.id.navProfileImage);
+
         mAuth = FirebaseAuth.getInstance();
         String onlineUserId = mAuth.getCurrentUser().getUid();
-        getUsersDataReference = FirebaseDatabase.getInstance().getReference().child("Users").child(onlineUserId);
+        mGetUsersDataReference = FirebaseDatabase.getInstance().getReference().child("Users").child(onlineUserId);
+        mGetUsersDataReference.keepSynced(true);
+
+       /* mMapDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Saved_location").child(onlineUserId);
+
+
+        mMapDatabaseReference.child("location_counter").setValue(String.valueOf(0));
+        mMapDatabaseReference.child(String.valueOf(0)).child("location_name").setValue("locationName");
+        mMapDatabaseReference.child(String.valueOf(0)).child("location_latitude").setValue("latitude");
+        mMapDatabaseReference.child(String.valueOf(0)).child("location_longitude").setValue("longitude").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(!task.isSuccessful())
+                {
+                    Log.d(TAG, "onComplete: Saved_location table not created!");
+                }
+                else{
+                    Log.d(TAG, "onComplete: Saved_location table created!");
+                }
+            }
+        });*/
+
         profileImageReference = FirebaseStorage.getInstance().getReference();
         //offline capablities enabled
-        getUsersDataReference.keepSynced(true);
+        mGetUsersDataReference.keepSynced(true);
 
-
-
-        //loadUserInfo();
-        getUsersDataReference.addValueEventListener(new ValueEventListener() {
+        mGetUsersDataReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String name = dataSnapshot.child("user_name").getValue().toString();
                 String email = dataSnapshot.child("user_email").getValue().toString();
-                String image = dataSnapshot.child("user_image").getValue().toString();
-                String thumb_image = dataSnapshot.child("user_thumb_image").getValue().toString();
+                //String phone = dataSnapshot.child("user_phone").getValue().toString();
+                final String image = dataSnapshot.child("user_image").getValue().toString();
+               /* String thumb_image = dataSnapshot.child("user_thumb_image").toString();*/
 
                 mName.setText(name);
                 mEmail.setText(email);
-                //loadUserInfo();
-                //Glide.with(Profile.this).load(image).into(mProfileImage);
+                mNavEmail.setText(email);
+                mNavName.setText(name);
 
-                if(!image.equals("default_profile_image")) {
-                    Picasso.with(Profile.this).load(image).placeholder(R.drawable.default_profile_image).into(mProfileImage);
+               // toolbar.setTitle(name);
+                //if(!phone.equals("+880***********")){
+                //mPhone.setText(phone);
+                //}
+                if(!image.equals("default_profile_image"))
+                {
+                    //Picasso.with(Profile.this).load(image).placeholder(R.drawable.default_profile_image).into(mProfileImage);
+                    Picasso.with(Profile.this).load(image).placeholder(R.drawable.default_profile_image).networkPolicy(NetworkPolicy.OFFLINE).into(mProfileImage, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError() {
+                            Picasso.with(Profile.this).load(image).placeholder(R.drawable.default_profile_image).into(mProfileImage);
+                        }
+                    });
+
+                    Picasso.with(Profile.this).load(image).placeholder(R.drawable.default_profile_image).networkPolicy(NetworkPolicy.OFFLINE).into(mNavPic, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError() {
+                            Picasso.with(Profile.this).load(image).placeholder(R.drawable.default_profile_image).into(mNavPic);
+                        }
+                    });
                 }
-                //mProfileImage.setImageResource(Integer.parseInt(image));
-                // Picasso.with(Profile.this).load(image).centerCrop().into(mProfileImage);
-              /*  Picasso.with(Profile.this).load(image).centerCrop()
-                        .into((CircleImageView) findViewById(R.id.settigns_profile_image));*/
+
 
 
             }
@@ -128,36 +174,39 @@ public class Profile extends AppCompatActivity implements MaterialSearchBar.OnSe
             }
         });
 
-        mProfileImage.setOnClickListener(new View.OnClickListener() {
+
+        mAddProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showImageChooser();
                 saveUserInfo();
-                 loadUserInfo();
+                // loadUserInfo();
             }
         });
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                if(id==R.id.editProfile)
-                {
-                    Toast.makeText(Profile.this,"Edit Profile",Toast.LENGTH_LONG).show();
-                   /* Intent phoneIntent = new Intent(Profile.this,EditPhoneNumber.class);
-                    startActivity(phoneIntent);*/
-                }
-                else if(id==R.id.search)
-                {
-                    Toast.makeText(Profile.this,"Search",Toast.LENGTH_LONG).show();
-                    /*Intent cardIntent = new Intent(Profile.this,CardNumber.class);
-                    startActivity(cardIntent);*/
+                if(id==R.id.search) {
+                    Toast.makeText(Profile.this, "search", Toast.LENGTH_LONG).show();
+                    Intent phoneIntent = new Intent(Profile.this, ClassifierActivity.class);
+                    startActivity(phoneIntent);
                 }
                 else if(id==R.id.discussion)
                 {
-                    Toast.makeText(Profile.this,"Discussion Forum",Toast.LENGTH_LONG).show();
+                    Intent discussionIntent = new Intent(Profile.this, DiscussionForum.class);
+                    startActivity(discussionIntent);
+                    Toast.makeText(Profile.this, R.string.discussion,Toast.LENGTH_LONG).show();
                 }
                 else if(id==R.id.logout)
                 {
+                    mAuth.signOut();
+                    Intent intent = new Intent(Profile.this,MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                     Toast.makeText(Profile.this,"Log out",Toast.LENGTH_LONG).show();
                 }
                 return true;
@@ -165,6 +214,7 @@ public class Profile extends AppCompatActivity implements MaterialSearchBar.OnSe
         });
 
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -247,9 +297,7 @@ public class Profile extends AppCompatActivity implements MaterialSearchBar.OnSe
                     mProgressDialog.dismiss();
 
                     mProfileImageUrl = taskSnapshot.getDownloadUrl().toString();
-                    getUsersDataReference.child("user_image").setValue(mProfileImageUrl);
-
-                    Log.d("idb", "onSuccess: " + mProfileImageUrl);
+                    mGetUsersDataReference.child("user_image").setValue(mProfileImageUrl);
 
 
                 }
@@ -273,27 +321,5 @@ public class Profile extends AppCompatActivity implements MaterialSearchBar.OnSe
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Select image"),gallery_pic);
     }
-
-    @Override
-    public void onSearchStateChanged(boolean b) {
-        String state = b ? "enabled" : "disabled";
-        Toast.makeText(Profile.this, "Search " + state, Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public void onSearchConfirmed(CharSequence charSequence) {
-        Toast.makeText(this,"Searching "+ charSequence.toString()+" ......",Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onButtonClicked(int i) {
-        switch (i){
-            case MaterialSearchBar.BUTTON_NAVIGATION:
-                Toast.makeText(Profile.this, "Button Nav " , Toast.LENGTH_SHORT).show();
-                break;
-            case MaterialSearchBar.BUTTON_SPEECH:
-                Toast.makeText(Profile.this, "Speech " , Toast.LENGTH_SHORT).show();
-        }
-    }
-
 
 }

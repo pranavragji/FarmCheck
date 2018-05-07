@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dnerd.dipty.farmcheck">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <!-- android:roundIcon="@mipmap/ic_launcher_round" -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -31,6 +33,20 @@
         <activity
             android:name=".Profile"
             android:label="@string/title_activity_profile"
+            android:theme="@style/ProfileTheme" />
+        <activity android:name=".Disease_Detection" />
+        <activity android:name=".ClassifierActivity" />
+        <activity android:name=".Navigation" />
+        <activity
+            android:name=".DiscussionForum"
+            android:label="@string/discussion_toolbar_name"
+            android:theme="@style/ProfileTheme" />
+        <activity android:name=".SetupActivity" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".NewPostActivity"
+            android:label="@string/new_post"
             android:theme="@style/ProfileTheme"></activity>
     </application>
 

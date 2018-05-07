@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -30,9 +30,13 @@
 
     <style name="ProfileTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/toolbarcolor</item>
+        <item name="colorPrimary">@color/proflieToolBar</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarky</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+       <!-- to make navigation drwaer fill status bar and become transparent
+        <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>-->
     </style>
 
 </resources>

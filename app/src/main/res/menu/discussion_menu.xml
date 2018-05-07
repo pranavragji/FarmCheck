@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/discussion_search"
+        android:icon="@drawable/discuss_search_icon"
+        android:title="@string/searchString"
+        app:showAsAction="always">
+
+    </item>
+    <item
+        android:id="@+id/discussion_settings"
+        android:title="@string/discussion_settings">
+
+    </item>
+    <item
+        android:id="@+id/discussion_logout"
+        android:title="@string/logout">
+
+    </item>
+
+</menu>

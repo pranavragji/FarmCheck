@@ -33,4 +33,22 @@
     <string name="close">Close</string>
     <string name="profileUpdated">Profile Updated</string>
     <string name="change_image">Change picture</string>
+
+    <string name="btn_recognize_text">What diseas is This?</string>
+    <string name="result_no_hero_found">Ops I don\'t know</string>
+    <string name="result_confident_hero_found">This is surely %1$s.</string>
+    <string name="result_think_hero_found">I think I see %1$s.</string>
+    <string name="result_maybe_hero_found">Hmm, is this %1$s?</string>
+    <string name="buttonDiagnose">Diagose</string>
+    <string name="buttonSelectPhoto">Select Photo</string>
+    <string name="buttonTakePhoto">Take photo</string>
+    <string name="discussion_toolbar_name">Discussion Forum</string>
+    <string name="discussion_settings">Settings</string>
+    <string name="discussion">discussion</string>
+    <string name="bottom_home_text">Home</string>
+    <string name="bottom_notification_text">Notification</string>
+    <string name="bottom_ac_text">Account</string>
+    <string name="post_desc_hint">Add Description ...</string>
+    <string name="new_post_btn_hint">Post</string>
+    <string name="new_post">New Post</string>
 </resources>

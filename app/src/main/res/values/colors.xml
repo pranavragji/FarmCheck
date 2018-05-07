@@ -25,4 +25,7 @@
     <color name="pressed_purple_button_dark">#FFAE86D9</color>color>
     <color name="focused_purple_button">#d6c3ed</color>
     <color name="backgroundTest">#FF363535</color>
+    <color name="proflieToolBar">#3d0943</color>
+    <color name="hint_color">#635e5e</color>
+    <color name="toolColor">#741e70</color>
 </resources>

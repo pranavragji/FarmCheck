@@ -4,9 +4,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundTest"
     android:orientation="vertical"
     android:id="@+id/drawer_nav">
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -16,69 +19,63 @@
         tools:context="com.dnerd.dipty.farmcheck.Profile"
         tools:showIn="@layout/activity_profile">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:src="@drawable/default_profile_image"
-            android:layout_marginTop="156dp"
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@drawable/dark_clouds"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:id="@+id/relativeLayoutPic"
             android:layout_centerHorizontal="true"
-            android:id="@+id/profileImage" />
+            android:layout_marginTop="20dp">
 
-        <TextView
-            android:id="@+id/profileTextViewUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="340dp"
-            android:layout_centerHorizontal="true"
-            android:text="@string/name"
-            android:textColor="@color/colorWhite"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/profileTextViewEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/email"
-            android:textStyle="bold"
-            android:textSize="24sp"
-            android:textColor="@color/colorWhite"
-            android:layout_below="@+id/profileTextViewUsername"
-            android:layout_centerHorizontal="true" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="96dp"
+                android:src="@drawable/default_profile_image" />
 
-<!--        <Button
-            android:id="@+id/buttonChangeImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/profileTextViewUsername"
-            android:layout_marginLeft="17dp"
-            android:layout_marginStart="17dp"
-            android:layout_toEndOf="@+id/profileTextViewUsername"
-            android:layout_toRightOf="@+id/profileTextViewUsername"
-            android:background="@drawable/button_custom"
-            android:text="@string/change_image"
-            android:textColor="@color/text_color"
-            android:textSize="15sp"
-            android:textStyle="bold" />-->
+            <ImageView
+                android:id="@+id/addProfilePic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/profileImage"
+                android:layout_alignEnd="@+id/profileImage"
+                android:layout_alignRight="@+id/profileImage"
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/add_icon" />
+        </RelativeLayout>
 
-        <!-- <Button
-             android:id="@+id/buttonChangeImage"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_alignBottom="@+id/profileImage"
-             android:layout_marginLeft="17dp"
-             android:layout_marginStart="17dp"
-             android:layout_toEndOf="@+id/profileImage"
-             android:layout_toRightOf="@+id/profileImage"
-             android:background="@drawable/button_custom"
-             android:text="@string/change_image"
-             android:textColor="@color/text_color"
-             android:textSize="15sp"
-             android:textStyle="bold" /> !-->
+    <TextView
+        android:id="@+id/profileTextViewUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:text=""
+        android:textSize="28sp"
+        android:layout_below="@+id/relativeLayoutPic"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-condensed"
+        android:textAppearance="?android:textAppearanceLarge"/>
 
-
+    <TextView
+        android:id="@+id/profileTextViewEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profileTextViewUsername"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textAppearance="?android:textAppearanceLarge"/>
     </RelativeLayout>
+    </ScrollView>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"

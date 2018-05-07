@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ProfileTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/toolbarcolor</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarky</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    <!--    &lt;!&ndash;to make navigation drwaer fill status bar and become transparent&ndash;&gt;
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>-->
+    </style>
+
+
+</resources>
